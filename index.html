@@ -55,7 +55,10 @@
             }
         }
 
-        window.onload = fetchData;
+		window.onload = () => {
+            fetchData();
+            setInterval(fetchData, 10000); // Atualiza a cada 60 segundos
+        };
     </script>
 </head>
 <body>
