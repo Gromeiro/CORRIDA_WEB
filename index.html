@@ -31,17 +31,38 @@
                 const data = await response.json();
                 const rows = data.values;
                 if (rows.length > 0) {
+                    let showG = false;
+                    let showH = false;
+                    let showI = false;
+
+                    // Check if columns G, H, or I have data
+                    for (let i = 1; i < rows.length; i++) {
+                        if (rows[i][6] && rows[i][6] !== '') showG = true;
+                        if (rows[i][7] && rows[i][7] !== '') showH = true;
+                        if (rows[i][8] && rows[i][8] !== '') showI = true;
+                    }
+
                     let table = '<table><tr>';
-                    rows[0].forEach(header => {
-                        table += `<th>${header}</th>`;
-                    });
+                    // Always show columns A to F
+                    for (let i = 0; i <= 5; i++) {
+                        table += `<th>${rows[0][i]}</th>`;
+                    }
+                    // Conditionally show columns G, H, I
+                    if (showG) table += `<th>${rows[0][6]}</th>`;
+                    if (showH) table += `<th>${rows[0][7]}</th>`;
+                    if (showI) table += `<th>${rows[0][8]}</th>`;
                     table += '</tr>';
 
                     for (let i = 1; i < rows.length; i++) {
                         table += '<tr>';
-                        rows[i].forEach(cell => {
-                            table += `<td>${cell}</td>`;
-                        });
+                        // Always show columns A to F
+                        for (let j = 0; j <= 5; j++) {
+                            table += `<td>${rows[i][j] || ''}</td>`;
+                        }
+                        // Conditionally show columns G, H, I
+                        if (showG) table += `<td>${rows[i][6] || ''}</td>`;
+                        if (showH) table += `<td>${rows[i][7] || ''}</td>`;
+                        if (showI) table += `<td>${rows[i][8] || ''}</td>`;
                         table += '</tr>';
                     }
                     table += '</table>';
@@ -55,7 +76,7 @@
             }
         }
 
-		window.onload = () => {
+        window.onload = () => {
             fetchData();
             setInterval(fetchData, 10000); // Atualiza a cada 60 segundos
         };
