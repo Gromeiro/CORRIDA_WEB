@@ -22,7 +22,7 @@
         async function fetchData() {
             const apiKey = 'AIzaSyBZBhhCf8ESmX6_cKhA_fOWeADl0YBmjj4';
             const spreadsheetId = '1Wu-DR461EE-6PoqNyU65P2FFUPTF_qUe20NjVdC-GF4'; // Substitua pelo ID correto da sua planilha
-            const range = 'TOTAIS!A1:I76'; // Altere para o intervalo que você deseja
+            const range = 'TABELA TOTAIS!A1:I78'; // Altere para o intervalo que você deseja
 
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
 
@@ -35,34 +35,34 @@
                     let showH = false;
                     let showI = false;
 
-                    // Check if columns G, H, or I have data
+                    // Check if columns F, G, or H have data
                     for (let i = 1; i < rows.length; i++) {
-                        if (rows[i][6] && rows[i][6] !== '') showG = true;
-                        if (rows[i][7] && rows[i][7] !== '') showH = true;
-                        if (rows[i][8] && rows[i][8] !== '') showI = true;
+                        if (rows[i][5] && rows[i][5] !== '') showG = true;
+                        if (rows[i][6] && rows[i][6] !== '') showH = true;
+                        if (rows[i][7] && rows[i][7] !== '') showI = true;
                     }
 
                     let table = '<table><tr>';
                     // Always show columns A to F
-                    for (let i = 0; i <= 5; i++) {
+                    for (let i = 0; i <= 4; i++) {
                         table += `<th>${rows[0][i]}</th>`;
                     }
                     // Conditionally show columns G, H, I
-                    if (showG) table += `<th>${rows[0][6]}</th>`;
-                    if (showH) table += `<th>${rows[0][7]}</th>`;
-                    if (showI) table += `<th>${rows[0][8]}</th>`;
+                    if (showG) table += `<th>${rows[0][5]}</th>`;
+                    if (showH) table += `<th>${rows[0][6]}</th>`;
+                    if (showI) table += `<th>${rows[0][7]}</th>`;
                     table += '</tr>';
 
                     for (let i = 1; i < rows.length; i++) {
                         table += '<tr>';
                         // Always show columns A to F
-                        for (let j = 0; j <= 5; j++) {
+                        for (let j = 0; j <= 4; j++) {
                             table += `<td>${rows[i][j] || ''}</td>`;
                         }
                         // Conditionally show columns G, H, I
-                        if (showG) table += `<td>${rows[i][6] || ''}</td>`;
-                        if (showH) table += `<td>${rows[i][7] || ''}</td>`;
-                        if (showI) table += `<td>${rows[i][8] || ''}</td>`;
+                        if (showG) table += `<td>${rows[i][5] || ''}</td>`;
+                        if (showH) table += `<td>${rows[i][6] || ''}</td>`;
+                        if (showI) table += `<td>${rows[i][7] || ''}</td>`;
                         table += '</tr>';
                     }
                     table += '</table>';
@@ -78,7 +78,7 @@
 
         window.onload = () => {
             fetchData();
-            setInterval(fetchData, 10000); // Atualiza a cada 60 segundos
+            setInterval(fetchData, 10000); // Atualiza a cada 10 segundos
         };
     </script>
 </head>
