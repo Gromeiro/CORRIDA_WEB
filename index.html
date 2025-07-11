@@ -1,39 +1,118 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados da Corrida - Totais</title>
-    <style>
-        table {
-            width: auto; /* << permite a tabela ocupar apenas o necessário */
-            border-collapse: collapse;
-        }
-    
-        th, td {
-            padding: 6px 12px; /* padding mais pequeno para evitar colunas largas */
-            border: 1px solid #ccc;
-            text-align: left;
-            word-break: break-word; /* << permite quebra dentro de palavras longas */
-            max-width: 200px; /* << impede colunas gigantes */
-        }
-    
-        th {
-            background-color: #f4f4f4;
-        }
-    
-        .zebra-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-    
-        .zebra-table tr:nth-child(odd) {
-            background-color: #ffffff;
-        }
-    
-        #dataTable {
-            overflow-x: auto;
-        }
-    </style>
+	<style>
+		h1 {
+			text-align: center;
+			margin: 2px 0; /* margem vertical reduzida */
+			font-size: 1.6em; /* opcional: tamanho do texto um pouco menor */
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			table-layout: fixed;
+		}
+
+		th, td {
+			padding: 6px 12px;
+			border: 1px solid #ccc;
+			word-break: break-word;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			text-align: left; /* padrão */
+		}
+		body {
+			font-size: 120%;
+		}
+		td {
+			font-size: 110%;
+			padding: 3px 4px;         /* menos espaço vertical e horizontal */
+			line-height: 0.98;         /* 1.2altura da linha mais compacta */
+		}
+
+
+
+		/* Alinhar ao centro colunas 1,2,6,7,8,9 */
+		th:nth-child(1),
+		td:nth-child(1),
+		th:nth-child(2),
+		td:nth-child(2),
+		th:nth-child(6),
+		td:nth-child(6),
+		th:nth-child(7),
+		td:nth-child(7),
+		th:nth-child(8),
+		td:nth-child(8),
+		th:nth-child(9),
+		td:nth-child(9) {
+			text-align: center;
+		}
+
+		/* Largura fixa para colunas específicas */
+		th:nth-child(1),
+		td:nth-child(1) {
+			width: 4.5%;
+			min-width: 10px;
+		}
+
+		th:nth-child(2),
+		td:nth-child(2) {
+			width: 7%;
+			min-width: 40px;
+		}
+		th:nth-child(5),
+		td:nth-child(5) {
+			width: 230px;
+		}
+		th:nth-child(6),
+		td:nth-child(6) {
+			width: 100px;
+		}
+
+		th:nth-child(7),
+		td:nth-child(7) {
+			width: 100px;
+		}
+
+		th:nth-child(8),
+		td:nth-child(8) {
+			width: 100px;
+		}
+
+		th:nth-child(9),
+		td:nth-child(9) {
+			width: 100px;
+		}
+
+		/* Coluna 9 (índice 9 = coluna I visível) */
+		th:nth-child(10),
+		td:nth-child(10) {
+			text-align: center;
+			width: 100px;
+		}
+
+		th {
+			background-color: #d9d9d9;
+		}
+
+		.zebra-table tr:nth-child(odd) {
+			background-color: #e6f0ff;
+		}
+
+		.zebra-table tr:nth-child(even) {
+			background-color: #fff2e6;
+		}
+
+		#dataTable {
+			overflow-x: auto;
+		}
+	</style>
+
+
 
     <script>
         async function fetchData() {
@@ -49,28 +128,30 @@
                 const rows = data.values;
                 if (rows.length > 0) {
                     let showG = false;
-                    let showH = false;
-                    let showI = false;
+					let showH = false;
+					let showI = false;
+					let showJ = false; // Coluna I (índice 8)
 
-                    // Verifica se colunas G, H ou I têm dados
-                    for (let i = 1; i < rows.length; i++) {
-                        if (rows[i][5] && rows[i][5] !== '') showG = true;
-                        if (rows[i][6] && rows[i][6] !== '') showH = true;
-                        if (rows[i][7] && rows[i][7] !== '') showI = true;
-                    }
+					// Verifica se colunas G, H, I, J têm dados
+					for (let i = 1; i < rows.length; i++) {
+						if (rows[i][5] && rows[i][5] !== '') showG = true;
+						if (rows[i][6] && rows[i][6] !== '') showH = true;
+						if (rows[i][7] && rows[i][7] !== '') showI = true;
+						if (rows[i][8] && rows[i][8] !== '') showJ = true;
+					}
+
 
                     let table = '<table class="zebra-table"><tr>';
-                    // Cabeçalhos A a F
                     for (let i = 0; i <= 4; i++) {
                         table += `<th>${rows[0][i] || ''}</th>`;
                     }
-                    // Condicional G, H, I
                     if (showG) table += `<th>${rows[0][5] || ''}</th>`;
                     if (showH) table += `<th>${rows[0][6] || ''}</th>`;
                     if (showI) table += `<th>${rows[0][7] || ''}</th>`;
+					if (showJ) table += `<th>${rows[0][8] || ''}</th>`;
+
                     table += '</tr>';
 
-                    // Linhas de dados
                     for (let i = 1; i < rows.length; i++) {
                         table += '<tr>';
                         for (let j = 0; j <= 4; j++) {
@@ -79,8 +160,30 @@
                         if (showG) table += `<td>${rows[i][5] || ''}</td>`;
                         if (showH) table += `<td>${rows[i][6] || ''}</td>`;
                         if (showI) table += `<td>${rows[i][7] || ''}</td>`;
+						if (showJ) table += `<td>${rows[i][8] || ''}</td>`;
+
                         table += '</tr>';
                     }
 
                     table += '</table>';
                     document.getElementById('dataTable').innerHTML = table;
+                } else {
+                    document.getElementById('dataTable').innerHTML = 'Nenhum dado encontrado.';
+                }
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+                document.getElementById('dataTable').innerHTML = 'Erro ao carregar dados.';
+            }
+        }
+
+        window.onload = () => {
+            fetchData();
+            setInterval(fetchData, 10000);
+        };
+    </script>
+</head>
+<body>
+    <h1>Resultados da Corrida - Totais</h1>
+    <div id="dataTable">Carregando...</div>
+</body>
+</html>
