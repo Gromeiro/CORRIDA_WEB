@@ -7,36 +7,37 @@
 	<style>
 		h1 {
 			text-align: center;
-			margin: 2px 0; /* margem vertical reduzida */
-			font-size: 1.6em; /* opcional: tamanho do texto um pouco menor */
+			margin: 2px 0;
+			font-size: 1.6em;
+		}
+
+		body {
+			font-size: 100%;
+			margin: 0;
+			padding: 0;
 		}
 
 		table {
 			width: 100%;
 			border-collapse: collapse;
-			table-layout: fixed;
+			table-layout: auto; /* deixa o navegador ajustar as colunas */
 		}
 
 		th, td {
-			padding: 6px 12px;
+			padding: 6px 8px;
 			border: 1px solid #ccc;
 			word-break: break-word;
 			overflow: hidden;
 			text-overflow: ellipsis;
-			text-align: left; /* padrão */
+			font-size: 1em;
 		}
-		body {
-			font-size: 120%;
-		}
+
 		td {
-			font-size: 110%;
-			padding: 3px 4px;         /* menos espaço vertical e horizontal */
-			line-height: 0.98;         /* 1.2altura da linha mais compacta */
+			font-size: 1.05em; /* ligeiro aumento apenas nas células de dados */
+			line-height: 1.2;
 		}
 
-
-
-		/* Alinhar ao centro colunas 1,2,6,7,8,9 */
+		/* Centraliza colunas específicas */
 		th:nth-child(1),
 		td:nth-child(1),
 		th:nth-child(2),
@@ -48,84 +49,44 @@
 		th:nth-child(8),
 		td:nth-child(8),
 		th:nth-child(9),
-		td:nth-child(9) {
-			text-align: center;
-		}
-
-		/* Largura fixa para colunas específicas */
-		th:nth-child(1),
-		td:nth-child(1) {
-			width: 4.5%;
-			min-width: 10px;
-		}
-
-		th:nth-child(2),
-		td:nth-child(2) {
-			width: 7%;
-			min-width: 40px;
-		}
-		th:nth-child(5),
-		td:nth-child(5) {
-			width: 230px;
-		}
-		th:nth-child(6),
-		td:nth-child(6) {
-			width: 100px;
-		}
-
-		th:nth-child(7),
-		td:nth-child(7) {
-			width: 100px;
-		}
-
-		th:nth-child(8),
-		td:nth-child(8) {
-			width: 100px;
-		}
-
-		th:nth-child(9),
-		td:nth-child(9) {
-			width: 100px;
-		}
-
-		/* Coluna 9 (índice 9 = coluna I visível) */
+		td:nth-child(9),
 		th:nth-child(10),
 		td:nth-child(10) {
 			text-align: center;
-			width: 100px;
 		}
 
+		/* Cabeçalho */
 		th {
 			background-color: #d9d9d9;
 		}
 
+		/* Linhas alternadas */
 		.zebra-table tr:nth-child(odd) {
 			background-color: #e6f0ff;
 		}
-
 		.zebra-table tr:nth-child(even) {
 			background-color: #fff2e6;
 		}
 
-		#dataTable {
-			overflow-x: auto;
-		}
-		
+		/* Responsividade: garante que o conteúdo nunca estoura */
 		.table-wrapper {
 			width: 100%;
 			overflow-x: auto;
 		}
 
-		table {
-			min-width: 600px; /* garante que ela não encolhe demais */
-		}
-
+		/* Ajustes em ecrãs mais pequenos (telemóveis) */
 		@media (max-width: 768px) {
-			body {
-				font-size: 100%; /* reduz um pouco em telemóveis */
+			th, td {
+				padding: 4px 6px;
+				font-size: 0.95em;
 			}
+
+			h1 {
+				font-size: 1.3em;
+			}
+
 			td {
-				font-size: 100%;
+				line-height: 1.1;
 			}
 		}
 
