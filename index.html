@@ -8,30 +8,32 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: auto; /* <--- permite ajuste automático */
+            table-layout: auto; /* Permite ajuste automático da largura */
         }
         th, td {
             padding: 10px 15px;
             border: 1px solid #ddd;
             text-align: left;
-            white-space: nowrap; /* <--- impede quebra de linha automática */
+            white-space: nowrap; /* Evita quebra de linha automática */
         }
         th {
             background-color: #f4f4f4;
         }
-        tr:nth-child(even) {
-            background-color: #f9f9f9; /* <--- cor das linhas pares */
+        .zebra-table tr:nth-child(even) {
+            background-color: #f9f9f9; /* Linhas pares */
         }
-        tr:nth-child(odd) {
-            background-color: #ffffff; /* <--- cor das linhas ímpares */
+        .zebra-table tr:nth-child(odd) {
+            background-color: #ffffff; /* Linhas ímpares */
+        }
+        #dataTable {
+            overflow-x: auto;
         }
     </style>
-
     <script>
         async function fetchData() {
             const apiKey = 'AIzaSyBZBhhCf8ESmX6_cKhA_fOWeADl0YBmjj4';
-            const spreadsheetId = '1Wu-DR461EE-6PoqNyU65P2FFUPTF_qUe20NjVdC-GF4'; // Substitua pelo ID correto da sua planilha
-            const range = 'GERAL TEMPOS!A1:I78'; // Altere para o intervalo que você deseja
+            const spreadsheetId = '1Wu-DR461EE-6PoqNyU65P2FFUPTF_qUe20NjVdC-GF4';
+            const range = 'GERAL TEMPOS!A1:I78';
 
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
 
@@ -44,55 +46,35 @@
                     let showH = false;
                     let showI = false;
 
-                    // Check if columns F, G, or H have data
+                    // Verifica se colunas G, H ou I têm dados
                     for (let i = 1; i < rows.length; i++) {
                         if (rows[i][5] && rows[i][5] !== '') showG = true;
                         if (rows[i][6] && rows[i][6] !== '') showH = true;
                         if (rows[i][7] && rows[i][7] !== '') showI = true;
                     }
 
-                    let table = '<table><tr>';
-                    // Always show columns A to F
+                    let table = '<table class="zebra-table"><tr>';
+                    // Cabeçalhos A a F
                     for (let i = 0; i <= 4; i++) {
-                        table += `<th>${rows[0][i]}</th>`;
+                        table += `<th>${rows[0][i] || ''}</th>`;
                     }
-                    // Conditionally show columns G, H, I
-                    if (showG) table += `<th>${rows[0][5]}</th>`;
-                    if (showH) table += `<th>${rows[0][6]}</th>`;
-                    if (showI) table += `<th>${rows[0][7]}</th>`;
+                    // Condicional G, H, I
+                    if (showG) table += `<th>${rows[0][5] || ''}</th>`;
+                    if (showH) table += `<th>${rows[0][6] || ''}</th>`;
+                    if (showI) table += `<th>${rows[0][7] || ''}</th>`;
                     table += '</tr>';
 
+                    // Linhas de dados
                     for (let i = 1; i < rows.length; i++) {
                         table += '<tr>';
-                        // Always show columns A to F
                         for (let j = 0; j <= 4; j++) {
                             table += `<td>${rows[i][j] || ''}</td>`;
                         }
-                        // Conditionally show columns G, H, I
                         if (showG) table += `<td>${rows[i][5] || ''}</td>`;
                         if (showH) table += `<td>${rows[i][6] || ''}</td>`;
                         if (showI) table += `<td>${rows[i][7] || ''}</td>`;
                         table += '</tr>';
                     }
+
                     table += '</table>';
                     document.getElementById('dataTable').innerHTML = table;
-                } else {
-                    document.getElementById('dataTable').innerHTML = 'No data found.';
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                document.getElementById('dataTable').innerHTML = 'Error loading data.';
-            }
-        }
-
-        window.onload = () => {
-            fetchData();
-            setInterval(fetchData, 10000); // Atualiza a cada 10 segundos
-        };
-    </script>
-</head>
-<body>
-    <h1>Resultados da Corrida - Totais</h1>
-    <div id="dataTable">Loading...</div>
-</body>
-</html>
