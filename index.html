@@ -160,10 +160,30 @@
             fetchData();
             setInterval(fetchData, 10000);
         };
+
+		function checkOrientation() {
+			const isPortrait = window.matchMedia("(orientation: portrait)").matches;
+			const notice = document.getElementById("rotateNotice");
+			if (isPortrait) {
+				notice.style.display = "block";
+			} else {
+				notice.style.display = "none";
+			}
+		}
+
+		window.addEventListener("orientationchange", checkOrientation);
+		window.addEventListener("resize", checkOrientation);
+		window.addEventListener("load", checkOrientation);
+
+
     </script>
 </head>
 <body>
     <h1>Resultados da Corrida - Totais</h1>
     <div id="dataTable" class="table-wrapper">Carregando...</div>
+	<div id="rotateNotice" style="display:none; text-align:center; padding:10px; background:#ffdddd; color:#a00;">
+    ⚠️ Para melhor visualização, vire o seu dispositivo na horizontal.
+	</div>
+
 </body>
 </html>
