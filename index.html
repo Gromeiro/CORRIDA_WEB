@@ -110,6 +110,25 @@
 		#dataTable {
 			overflow-x: auto;
 		}
+		
+		.table-wrapper {
+			width: 100%;
+			overflow-x: auto;
+		}
+
+		table {
+			min-width: 600px; /* garante que ela não encolhe demais */
+		}
+
+		@media (max-width: 768px) {
+			body {
+				font-size: 100%; /* reduz um pouco em telemóveis */
+			}
+			td {
+				font-size: 100%;
+			}
+		}
+
 	</style>
 
 
@@ -184,6 +203,6 @@
 </head>
 <body>
     <h1>Resultados da Corrida - Totais</h1>
-    <div id="dataTable">Carregando...</div>
+    <div id="dataTable" class="table-wrapper">Carregando...</div>
 </body>
 </html>
