@@ -6,29 +6,35 @@
     <title>Resultados da Corrida - Totais</title>
     <style>
         table {
-            width: 100%;
+            width: auto; /* << permite a tabela ocupar apenas o necessário */
             border-collapse: collapse;
-            table-layout: auto; /* Permite ajuste automático da largura */
         }
+    
         th, td {
-            padding: 10px 15px;
-            border: 1px solid #ddd;
+            padding: 6px 12px; /* padding mais pequeno para evitar colunas largas */
+            border: 1px solid #ccc;
             text-align: left;
-            white-space: nowrap; /* Evita quebra de linha automática */
+            word-break: break-word; /* << permite quebra dentro de palavras longas */
+            max-width: 200px; /* << impede colunas gigantes */
         }
+    
         th {
             background-color: #f4f4f4;
         }
+    
         .zebra-table tr:nth-child(even) {
-            background-color: #f9f9f9; /* Linhas pares */
+            background-color: #f9f9f9;
         }
+    
         .zebra-table tr:nth-child(odd) {
-            background-color: #ffffff; /* Linhas ímpares */
+            background-color: #ffffff;
         }
+    
         #dataTable {
             overflow-x: auto;
         }
     </style>
+
     <script>
         async function fetchData() {
             const apiKey = 'AIzaSyBZBhhCf8ESmX6_cKhA_fOWeADl0YBmjj4';
