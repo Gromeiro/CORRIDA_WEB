@@ -123,8 +123,12 @@
 
                     let table = '<table class="zebra-table"><tr>';
                     for (let i = 0; i <= 4; i++) {
-                        table += `<th>${rows[0][i] || ''}</th>`;
+						if (i !== 3) table += `<th>${rows[0][i] || ''}</th>`;
                     }
+					
+					
+					
+					
                     if (showG) table += `<th>${rows[0][5] || ''}</th>`;
                     if (showH) table += `<th>${rows[0][6] || ''}</th>`;
                     if (showI) table += `<th>${rows[0][7] || ''}</th>`;
@@ -135,8 +139,10 @@
                     for (let i = 1; i < rows.length; i++) {
                         table += '<tr>';
                         for (let j = 0; j <= 4; j++) {
-                            table += `<td>${rows[i][j] || ''}</td>`;
+                            if (j !== 3) table += `<td>${rows[i][j] || ''}</td>`;
                         }
+						
+						
                         if (showG) table += `<td>${rows[i][5] || ''}</td>`;
                         if (showH) table += `<td>${rows[i][6] || ''}</td>`;
                         if (showI) table += `<td>${rows[i][7] || ''}</td>`;
