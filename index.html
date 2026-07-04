@@ -116,7 +116,7 @@
 
 					// Verifica se colunas G, H, I, J têm dados
 					for (let i = 1; i < rows.length; i++) {
-						//if (rows[i][5] && rows[i][5] !== '') showG = true;
+						if (rows[i][5] && rows[i][5] !== '') showG = true;
 						if (rows[i][6] && rows[i][6] !== '') showH = true;
 						if (rows[i][7] && rows[i][7] !== '') showI = true;
 						if (rows[i][8] && rows[i][8] !== '') showJ = true;
@@ -125,7 +125,8 @@
 
                     let table = '<table class="zebra-table"><tr>';
                     for (let i = 0; i <= 4; i++) {
-						if (i !== 3) table += `<th>${rows[0][i] || ''}</th>`;
+						//if (i !== 3) table += `<th>${rows[0][i] || ''}</th>`;
+						if (i !== 2) table += `<th>${rows[0][i] || ''}</th>`;
                     }
 					
 					
